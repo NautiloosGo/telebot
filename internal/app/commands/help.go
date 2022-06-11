@@ -5,6 +5,9 @@ import (
 )
 
 func (c *Commander) Help(inputMessage *tgbotapi.Message) {
-	msg := tgbotapi.NewMessage(inputMessage.Chat.ID, "/Help - описание\n/Nope - еще\n/List - все команды\n")
+	msg := tgbotapi.NewMessage(inputMessage.Chat.ID, "/help - описание\n/nope - еще\n/list - все команды\n")
 	c.bot.Send(msg)
+}
+func init() {
+	registeredCommands["help"] = (*Commander).Help
 }

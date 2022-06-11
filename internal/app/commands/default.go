@@ -5,7 +5,10 @@ import (
 )
 
 func (c *Commander) Default(inputMessage *tgbotapi.Message) {
-	msg := tgbotapi.NewMessage(inputMessage.Chat.ID, "You wrote "+inputMessage.Text+"\n/Help for more info") // куда отправлять и что отправлять
+	msg := tgbotapi.NewMessage(inputMessage.Chat.ID, "You wrote "+inputMessage.Text+"\n/help for more info") // куда отправлять и что отправлять
 	msg.ReplyToMessageID = inputMessage.MessageID                                                            //отправляет сообщения как реплай (можно убрать)
 	c.bot.Send(msg)
+}
+func init() {
+	registeredCommands["default"] = (*Commander).Default
 }

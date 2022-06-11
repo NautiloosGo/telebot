@@ -8,3 +8,6 @@ func (c *Commander) Nope(inputMessage *tgbotapi.Message) {
 	msg := tgbotapi.NewMessage(inputMessage.Chat.ID, "what ever..")
 	c.bot.Send(msg)
 }
+func init() {
+	registeredCommands["nope"] = (*Commander).Nope
+}
