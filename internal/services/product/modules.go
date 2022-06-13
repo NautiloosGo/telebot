@@ -9,5 +9,7 @@ var allProducts = []Product{
 }
 
 type Product struct {
-	Title string
+	Title       string
+	Description string
+	Price       float64
 }

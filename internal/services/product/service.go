@@ -8,14 +8,14 @@ func NewService() *Service {
 	return &Service{}
 }
 
-func (s *Service) List() []Product {
-	return allProducts
+func (s *Service) List() []Sku {
+	return catalog.Products
 }
 
-func (s *Service) Get(idx int) (*Product, error) {
-	if idx < 0 || idx >= len(allProducts) {
-		log.Println("there are no element in Products with number", idx)
-		return &Product{Title: "there are no element in Products with number"}, nil
+func (s *Service) Get(idx int) (*Sku, bool) {
+	if idx < 0 || idx >= len(catalog.Products) {
+		log.Println("there are no element in Products with number ", idx)
+		return nil, false
 	}
-	return &allProducts[idx], nil
+	return &catalog.Products[idx], true
 }

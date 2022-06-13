@@ -1,6 +1,8 @@
 package commands
 
 import (
+	"log"
+
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
@@ -12,7 +14,9 @@ func (c *Commander) Help(inputMessage *tgbotapi.Message) {
 	msg := tgbotapi.NewMessage(inputMessage.Chat.ID, mess)
 
 	//"/help - описание\n/nope - еще\n/list - все команды\n")
-	c.bot.Send(msg)
+	if _, err := c.bot.Send(msg); err != nil {
+		log.Panic(err)
+	}
 }
 func init() {
 	registeredCommands["help"] = (*Commander).Help

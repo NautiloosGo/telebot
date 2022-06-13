@@ -16,14 +16,17 @@ func (c *Commander) Get(inputMessage *tgbotapi.Message) {
 		return
 	}
 
-	product, err := c.productService.Get(idx)
-	if err != nil {
+	product, ok := c.productService.Get(idx)
+	if ok == false {
 		log.Printf("fail to get product with idx= %v", idx, err)
-	}
+	} else {
 
-	//msg := tgbotapi.NewMessage(inputMessage.Chat.ID, fmt.Sprintf("successfully parsed argument : %v", arg))
-	msg := tgbotapi.NewMessage(inputMessage.Chat.ID, product.Title)
-	c.bot.Send(msg)
+		//msg := tgbotapi.NewMessage(inputMessage.Chat.ID, fmt.Sprintf("successfully parsed argument : %v", arg))
+		msg := tgbotapi.NewMessage(inputMessage.Chat.ID, product.Title)
+		if _, err := c.bot.Send(msg); err != nil {
+			log.Panic(err)
+		}
+	}
 }
 func init() {
 	registeredCommands["get"] = (*Commander).Get

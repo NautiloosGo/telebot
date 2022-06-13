@@ -36,6 +36,8 @@ func main() {
 	}
 	updates := bot.GetUpdatesChan(u)
 
+	product.GetJsonCatalog() //подгружаю каталог из файла
+
 	productService := product.NewService()
 
 	commander := commands.NewCommander(bot, productService)

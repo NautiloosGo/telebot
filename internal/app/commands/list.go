@@ -2,6 +2,7 @@ package commands
 
 import (
 	"encoding/json"
+	"log"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
@@ -30,7 +31,10 @@ func (c *Commander) List(inputMessage *tgbotapi.Message) {
 			tgbotapi.NewInlineKeyboardButtonData("Next Page", string(serializedData)),
 		),
 	)
-	c.bot.Send(msg)
+	//c.bot.Send(msg) можно просто одной строкой без проверки ошибки
+	if _, err := c.bot.Send(msg); err != nil {
+		log.Panic(err)
+	}
 }
 func init() {
 	registeredCommands["list"] = (*Commander).List
