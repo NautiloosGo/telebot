@@ -27,9 +27,9 @@ func (c *Commander) HandleUpdate(update tgbotapi.Update) { //переключа�
 		return
 	}
 
-	command, ok := registeredCommands[update.Message.Command()]
+	command, ok := registeredCommands[update.Message.Command()] // если команда, то вызвать функ из мап по названию
 	if ok {
-		command(c, update.Message)
+		command(c, update.Message) // в мапе лежат процедуры с аргументами с (коммандер) и мессага
 	} else {
 		c.Default(update.Message)
 	}
