@@ -11,7 +11,18 @@ func (c *Commander) List(inputMessage *tgbotapi.Message) {
 		outputMsgText += p.Title
 		outputMsgText += "\n"
 	}
+
 	msg := tgbotapi.NewMessage(inputMessage.Chat.ID, outputMsgText)
+
+	msg.ReplyMarkup = tgbotapi.NewInlineKeyboardMarkup( // добавляем кнопку
+		tgbotapi.NewInlineKeyboardRow(
+			tgbotapi.NewInlineKeyboardButtonURL("yandex", "ya.ru"),
+		),
+		tgbotapi.NewInlineKeyboardRow(
+			//tgbotapi.NewInlineKeyboardButtonData("Next Page", "Button info"),
+			tgbotapi.NewInlineKeyboardButtonData("Next Page", "get_3"),
+		),
+	)
 	c.bot.Send(msg)
 }
 func init() {

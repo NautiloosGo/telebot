@@ -41,9 +41,9 @@ func main() {
 	commander := commands.NewCommander(bot, productService)
 
 	for update := range updates {
-
-		log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text) //то что получено показываю в панель
-
+		if update.CallbackQuery == nil { //проверка если не кнопка, то вывести текст
+			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text) //то что получено показываю в панель
+		}
 		commander.HandleUpdate(update)
 	}
 }
