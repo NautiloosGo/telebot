@@ -1,9 +1,9 @@
 package commands
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
-	"strings"
 
 	"github.com/NautiloosGo/telebot/internal/services/product"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -14,6 +14,10 @@ var registeredCommands = map[string]func(c *Commander, msg *tgbotapi.Message){}
 type Commander struct {
 	bot            *tgbotapi.BotAPI
 	productService *product.Service
+}
+
+type CommandData struct {
+	Offset int //'json:"offset"'
 }
 
 func NewCommander(
@@ -36,11 +40,12 @@ func (c *Commander) HandleUpdate(update tgbotapi.Update) { //переключа�
 
 	// обработка кнопок c Data типа "get_1" где get можно интерпретировать как команду
 	if update.CallbackQuery != nil {
-		args := strings.Split(update.CallbackQuery.Data, "_") //парсим текст в Data кнопки
+		//альтернативно через текст args := strings.Split(update.CallbackQuery.Data, "_") //парсим текст в Data кнопки
+		parsedData := CommandData{}
+		json.Unmarshal([]byte(update.CallbackQuery.Data), &parsedData)
 		msg := tgbotapi.NewMessage(
 			update.CallbackQuery.Message.Chat.ID,
-			fmt.Sprintf("Command: %s\n", args[0])+
-				fmt.Sprintf("Argument: %s\n", args[1]),
+			fmt.Sprintf("Parsed: %+v\n", parsedData),
 		)
 		// а вот вызвать функцию из списка не получилось, т.к. аргумент функций не string, а *tgbotapi.Message
 		// можно другую мапу с аргументами типа стринг сделать. И другого свитчера чисто под кнопки.
