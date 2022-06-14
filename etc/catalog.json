@@ -6,24 +6,19 @@
       "Price": 56.7
     },
     {
-      "Title": "apple",
-      "Description": "red or green fruit",
-      "Price": 56.7
-    },
-    {
-      "Title": "apple",
-      "Description": "red or green fruit",
-      "Price": 56.7
-    },
-    {
-      "Title": "apple",
-      "Description": "red or green fruit",
-      "Price": 56.7
-    },
-    {
       "Title": "Cherry",
       "Description": "berry",
       "Price": 11
+    },
+    {
+      "Title": "toy",
+      "Description": "Huggy Waggy",
+      "Price": 300
+    },
+    {
+      "Title": "Amazon",
+      "Description": "River",
+      "Price": 0
     }
   ]
 }

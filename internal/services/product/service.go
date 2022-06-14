@@ -1,6 +1,8 @@
 package product
 
-import "log"
+import (
+	"log"
+)
 
 type Service struct{}
 
@@ -18,4 +20,15 @@ func (s *Service) Get(idx int) (*Sku, bool) {
 		return nil, false
 	}
 	return &catalog.Products[idx], true
+}
+
+func (s *Service) Addprod(newsku *Sku) int {
+
+	catalog.Products = append(catalog.Products, *newsku)
+	log.Printf("New Sku %s added with id = #%v.", newsku.Title, len(catalog.Products))
+	return len(catalog.Products) - 1
+}
+
+func (s *Service) RewriteStorage() error {
+	return RewriteStorage()
 }

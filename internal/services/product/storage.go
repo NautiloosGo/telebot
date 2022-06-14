@@ -8,16 +8,6 @@ import (
 	"os"
 )
 
-type Sku struct {
-	Title       string
-	Description string
-	Price       float64
-}
-
-type Catalog struct {
-	Products []Sku
-}
-
 const catalogFilename = "etc/catalog.json"
 
 var catalog Catalog
@@ -62,8 +52,9 @@ func getSku() {
 		catalog.Products = append(catalog.Products, newProduct)
 		fmt.Printf("New Sku %s added with id = #%d.", newProduct.Title, i)
 	}
-
-	//заливаем обратно в json
+}
+func RewriteStorage() error {
+	//заливаем catalog обратно в json
 	rawDataOut, err := json.MarshalIndent(&catalog, "", "  ")
 	if err != nil {
 		log.Fatal("JSON marshaling failed:", err)
@@ -73,6 +64,7 @@ func getSku() {
 	if err != nil {
 		log.Fatal("Cannot write updated catalog file:", err)
 	}
+	return nil
 }
 
 func (cat *Catalog) editSku(s *Sku) (int, bool) {

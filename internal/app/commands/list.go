@@ -23,8 +23,11 @@ func (c *Commander) List(inputMessage *tgbotapi.Message) {
 	})
 
 	msg.ReplyMarkup = tgbotapi.NewInlineKeyboardMarkup( // добавляем кнопку
+		// tgbotapi.NewInlineKeyboardRow(
+		// 	tgbotapi.NewInlineKeyboardButtonURL("yandex", "ya.ru"),
+		// ),
 		tgbotapi.NewInlineKeyboardRow(
-			tgbotapi.NewInlineKeyboardButtonURL("yandex", "ya.ru"),
+			tgbotapi.NewInlineKeyboardButtonURL("Next Page", "ya.ru"),
 		),
 		tgbotapi.NewInlineKeyboardRow(
 			//tgbotapi.NewInlineKeyboardButtonData("Next Page", "Button info"),
