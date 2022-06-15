@@ -46,9 +46,9 @@ func (c *Commander) HandleUpdate(update tgbotapi.Update) { //переключа�
 		switch parsedData.Task {
 		case "Pagenum":
 			c.Pagenum(update.CallbackQuery.Message, parsedData.Parametr)
-			log.Printf("Pagenum")
+			log.Printf("Next page")
 		default:
-			log.Printf("not Pagenum")
+			log.Printf("wrong Task in Button")
 		}
 		//вывожу ответом что спарсено
 		// msg := tgbotapi.NewMessage(
