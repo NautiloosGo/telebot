@@ -1,13 +1,11 @@
 package product
 
-var allProducts = []Product{
-	{Title: "one"},
-	{Title: "two"},
-	{Title: "three"},
-	{Title: "four"},
-	{Title: "five"},
+type Sku struct {
+	Title       string
+	Description string
+	Price       float64
 }
 
-type Product struct {
-	Title string
+type Catalog struct {
+	Products []Sku
 }

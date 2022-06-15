@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"fmt"
 	"log"
 	"strconv"
 
@@ -12,18 +13,21 @@ func (c *Commander) Get(inputMessage *tgbotapi.Message) {
 	idx, err := strconv.Atoi(args)          // конвертируем в инт (буквы сконвертит в 0)
 	if err != nil {
 		log.Println("wrong argument number: ", args)
-		c.bot.Send(tgbotapi.NewMessage(inputMessage.Chat.ID, "Wrong argument number.\nFor example: \n/get 2"))
+		c.bot.Send(tgbotapi.NewMessage(inputMessage.Chat.ID, "Wrong argument number.\nExpecting /get <product ID>\nFor example: \n/get 2"))
 		return
 	}
 
-	product, err := c.productService.Get(idx)
-	if err != nil {
-		log.Printf("fail to get product with idx= %v", idx, err)
-	}
+	product, ok := c.productService.Get(idx)
+	if ok == false {
+		log.Printf("fail to get product with idx = %v", idx, err)
+	} else {
 
-	//msg := tgbotapi.NewMessage(inputMessage.Chat.ID, fmt.Sprintf("successfully parsed argument : %v", arg))
-	msg := tgbotapi.NewMessage(inputMessage.Chat.ID, product.Title)
-	c.bot.Send(msg)
+		//msg := tgbotapi.NewMessage(inputMessage.Chat.ID, fmt.Sprintf("successfully parsed argument : %v", arg))
+		msg := tgbotapi.NewMessage(inputMessage.Chat.ID, fmt.Sprintf("id: %v\nTitle: %s\nDescription: %s\nPrice: %f", idx, product.Title, product.Description, product.Price))
+		if _, err := c.bot.Send(msg); err != nil {
+			log.Panic(err)
+		}
+	}
 }
 func init() {
 	registeredCommands["get"] = (*Commander).Get
