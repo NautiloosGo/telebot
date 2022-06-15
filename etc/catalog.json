@@ -16,9 +16,44 @@
       "Price": 300
     },
     {
-      "Title": "Amazon",
-      "Description": "River",
-      "Price": 0
+      "Title": "yogurt",
+      "Description": "vkusny",
+      "Price": 17
+    },
+    {
+      "Title": "rogalik s makom",
+      "Description": "bez maka",
+      "Price": 10
+    },
+    {
+      "Title": "go",
+      "Description": "lang",
+      "Price": 300
+    },
+    {
+      "Title": "go",
+      "Description": "game",
+      "Price": 404
+    },
+    {
+      "Title": "pho bo",
+      "Description": "суп",
+      "Price": 405
+    },
+    {
+      "Title": "дукварь",
+      "Description": "книга",
+      "Price": 100
+    },
+    {
+      "Title": "adyn",
+      "Description": "opisaniye",
+      "Price": 20
+    },
+    {
+      "Title": "golang",
+      "Description": "lang",
+      "Price": 30
     }
   ]
 }

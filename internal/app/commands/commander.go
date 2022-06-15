@@ -2,7 +2,6 @@ package commands
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 
 	"github.com/NautiloosGo/telebot/internal/services/product"
@@ -17,7 +16,8 @@ type Commander struct {
 }
 
 type CommandData struct {
-	Offset int //'json:"offset"'
+	Task     string
+	Parametr int
 }
 
 func NewCommander(
@@ -43,15 +43,24 @@ func (c *Commander) HandleUpdate(update tgbotapi.Update) { //переключа�
 		//альтернативно через текст args := strings.Split(update.CallbackQuery.Data, "_") //парсим текст в Data кнопки
 		parsedData := CommandData{}
 		json.Unmarshal([]byte(update.CallbackQuery.Data), &parsedData)
-		msg := tgbotapi.NewMessage(
-			update.CallbackQuery.Message.Chat.ID,
-			fmt.Sprintf("Parsed: %+v\n", parsedData),
-		)
+		switch parsedData.Task {
+		case "Pagenum":
+			c.Pagenum(update.CallbackQuery.Message, parsedData.Parametr)
+			log.Printf("Pagenum")
+		default:
+			log.Printf("not Pagenum")
+		}
+		//вывожу ответом что спарсено
+		// msg := tgbotapi.NewMessage(
+		// 	update.CallbackQuery.Message.Chat.ID,
+		// 	fmt.Sprintf("Parsed: %+v\n", parsedData),
+		// )
+
 		// а вот вызвать функцию из списка не получилось, т.к. аргумент функций не string, а *tgbotapi.Message
 		// можно другую мапу с аргументами типа стринг сделать. И другого свитчера чисто под кнопки.
-		if _, err := c.bot.Send(msg); err != nil {
-			log.Panic(err)
-		}
+		// if _, err := c.bot.Send(msg); err != nil {
+		// 	log.Panic(err)
+		// }
 		return
 	}
 

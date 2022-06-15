@@ -32,3 +32,21 @@ func (s *Service) Addprod(newsku *Sku) int {
 func (s *Service) RewriteStorage() error {
 	return RewriteStorage()
 }
+
+func (s *Service) Delprod(idx int) bool {
+	if idx < 0 || idx >= len(catalog.Products) {
+		log.Println("there are no element in Products with number ", idx)
+		return false
+	}
+	if idx == len(catalog.Products)-1 {
+		catalog.Products = catalog.Products[:len(catalog.Products)-1]
+	} else {
+		for idx < len(catalog.Products)-1 {
+			catalog.Products[idx] = catalog.Products[idx+1]
+			idx++
+		}
+		catalog.Products = catalog.Products[:len(catalog.Products)-1]
+	}
+	RewriteStorage()
+	return true
+}
