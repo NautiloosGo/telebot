@@ -13,7 +13,7 @@ func (c *Commander) Get(inputMessage *tgbotapi.Message) {
 	idx, err := strconv.Atoi(args)          // конвертируем в инт (буквы сконвертит в 0)
 	if err != nil {
 		log.Println("wrong argument number: ", args)
-		c.bot.Send(tgbotapi.NewMessage(inputMessage.Chat.ID, "Wrong argument number.\nFor example: \n/get 2"))
+		c.bot.Send(tgbotapi.NewMessage(inputMessage.Chat.ID, "Wrong argument number.\nExpecting /get <product ID>\nFor example: \n/get 2"))
 		return
 	}
 

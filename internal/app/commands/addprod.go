@@ -21,7 +21,7 @@ func (c *Commander) Addprod(inputMessage *tgbotapi.Message) {
 	newbie := strings.Split(args, "_")      // конвертируем в инт (буквы сконвертит в 0)
 	if len(newbie) != 3 {
 		log.Println("wrong argument: ", args)
-		c.bot.Send(tgbotapi.NewMessage(inputMessage.Chat.ID, "Wrong argument.\nExpecting: \n/addprod Name_Short description_100"))
+		c.bot.Send(tgbotapi.NewMessage(inputMessage.Chat.ID, "Wrong argument.\nExpecting /addprod <product Name_Description_Price>\nFor example:\n/addprod Huggy Waggy_toy_100"))
 		return
 	}
 	price, err := strconv.ParseFloat(newbie[2], 64)

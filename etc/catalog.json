@@ -6,9 +6,9 @@
       "Price": 56.7
     },
     {
-      "Title": "Cherry",
-      "Description": "berry",
-      "Price": 11
+      "Title": "cherry",
+      "Description": "red",
+      "Price": 13
     },
     {
       "Title": "toy",
@@ -54,6 +54,21 @@
       "Title": "golang",
       "Description": "lang",
       "Price": 30
+    },
+    {
+      "Title": "cs go",
+      "Description": "game",
+      "Price": 250
+    },
+    {
+      "Title": "goose",
+      "Description": "gaga",
+      "Price": 100
+    },
+    {
+      "Title": "jango",
+      "Description": "free",
+      "Price": 0
     }
   ]
 }

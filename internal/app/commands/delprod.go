@@ -13,7 +13,7 @@ func (c *Commander) Delprod(inputMessage *tgbotapi.Message) {
 	idx, err := strconv.Atoi(args)          // конвертируем в инт (буквы сконвертит в 0)
 	if err != nil {
 		log.Println("wrong argument number: ", args)
-		c.bot.Send(tgbotapi.NewMessage(inputMessage.Chat.ID, "Wrong argument number.\nFor example: \n/delprod 2\nWARNING! Deleting will shift product ID. To keep it use /editprod"))
+		c.bot.Send(tgbotapi.NewMessage(inputMessage.Chat.ID, "Wrong argument number.\nExpecting: /delprod <product ID>\n/delprod 2\nWARNING! Deleting will shift product ID. To keep it use /editprod"))
 		return
 	}
 
@@ -28,13 +28,19 @@ func (c *Commander) Delprod(inputMessage *tgbotapi.Message) {
 	if _, err := c.bot.Send(msg); err != nil {
 		log.Panic(err)
 	}
+
 	if c.productService.Delprod(idx) {
 		msg := tgbotapi.NewMessage(inputMessage.Chat.ID, fmt.Sprintf("DELETED\nIDs other product was shifted"))
 		if _, err := c.bot.Send(msg); err != nil {
 			log.Panic(err)
 		}
 	}
-
+	err = c.productService.RewriteStorage()
+	if err != nil {
+		log.Printf("fail to rewrite data to storage", err)
+		c.bot.Send(tgbotapi.NewMessage(inputMessage.Chat.ID, "fail to rewrite data to storage"))
+		return
+	}
 }
 func init() {
 	registeredCommands["delprod"] = (*Commander).Delprod

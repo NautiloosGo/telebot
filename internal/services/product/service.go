@@ -33,6 +33,12 @@ func (s *Service) RewriteStorage() error {
 	return RewriteStorage()
 }
 
+func (s *Service) Editprod(newsku *Sku, idx int) bool {
+
+	catalog.Products[idx] = *newsku
+	return true
+}
+
 func (s *Service) Delprod(idx int) bool {
 	if idx < 0 || idx >= len(catalog.Products) {
 		log.Println("there are no element in Products with number ", idx)
